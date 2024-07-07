@@ -1,4 +1,4 @@
-package com.KotlinExercise
+package com.kotlinexercise
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
