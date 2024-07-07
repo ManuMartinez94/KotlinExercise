@@ -1,8 +1,8 @@
 package com.kotlinexercise.controllers
 
-import com.kotlinexercise.services.AlbumInfo
+import com.kotlinexercise.models.AlbumInfo
+import com.kotlinexercise.models.Photo
 import com.kotlinexercise.services.AlbumService
-import com.kotlinexercise.services.Photo
 import com.kotlinexercise.services.TokenService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter

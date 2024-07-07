@@ -27,6 +27,10 @@ Follow these instructions to get a copy of the project up and running on your lo
    ```bash
    ./gradlew bootRun
 
+### Postman
+   
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/21551936-dd274cc9-cce6-4830-a3b7-daa42dd7c644?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D21551936-dd274cc9-cce6-4830-a3b7-daa42dd7c644%26entityType%3Dcollection%26workspaceId%3Dd04e1323-4ba9-43c1-9107-3d7d892ecd7b)
+
 ## Additional Information
 ### Running Tests
  - The tests are made with JUnit and Mockito, and there are also integration tests. Tests can be run with Gradle:

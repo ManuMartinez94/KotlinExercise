@@ -1,15 +1,12 @@
 package com.kotlinexercise.services
 
+import com.kotlinexercise.models.AlbumInfo
+import com.kotlinexercise.models.Photo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.getForObject
-
-data class AlbumCollection(val albums: List<AlbumInfo>)
-data class AlbumInfo(val userId: Int, val id: Int, val title: String)
-data class Album(val id: Int,val photos: List<Photo>)
-data class Photo(val id: Int, val title: String,val url: String,val thumbnailUrl: String)
 
 @Service
 class AlbumService(@Autowired private val rest: RestTemplate) {

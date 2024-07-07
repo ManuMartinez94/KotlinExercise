@@ -1,8 +1,8 @@
 package com.kotlinexercise
 
-import com.kotlinexercise.services.AlbumInfo
+import com.kotlinexercise.models.AlbumInfo
+import com.kotlinexercise.models.Photo
 import com.kotlinexercise.services.AlbumService
-import com.kotlinexercise.services.Photo
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.InjectMocks
