@@ -44,6 +44,14 @@ class ApiControllerIntegrationTests {
 	}
 
 	@Test
+	fun `get album info`(){
+		mockMvc.perform(get("/api/albums/1/info")
+			.header("Authorization", token))
+			.andExpect(status().isOk)
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+	}
+
+	@Test
 	fun `get album`(){
 		mockMvc.perform(get("/api/albums/1")
 			.header("Authorization", token))

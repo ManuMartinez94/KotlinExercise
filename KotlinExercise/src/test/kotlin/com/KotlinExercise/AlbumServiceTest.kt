@@ -1,5 +1,9 @@
 package com.kotlinexercise
 
+import com.kotlinexercise.dto.AlbumDTO
+import com.kotlinexercise.dto.AlbumInfoDTO.Companion.toAlbumInfoDTO
+import com.kotlinexercise.dto.AlbumInfoDTO.Companion.toAlbumInfoDTOList
+import com.kotlinexercise.dto.PhotoDTO.Companion.toPhotoDTOList
 import com.kotlinexercise.models.AlbumInfo
 import com.kotlinexercise.models.Photo
 import com.kotlinexercise.services.AlbumService
@@ -40,9 +44,9 @@ class AlbumServiceTest {
         )).thenReturn(albums)
 
         `when`(restTemplate.getForObject(
-            "https://jsonplaceholder.typicode.com/albums/1",
+            "https://jsonplaceholder.typicode.com/albums/2",
             AlbumInfo::class.java
-        )).thenReturn(album1)
+        )).thenReturn(album2)
 
         `when`(restTemplate.getForObject(
             "https://jsonplaceholder.typicode.com/albums/2/photos",
@@ -61,9 +65,9 @@ class AlbumServiceTest {
     }
 
     @Test
-    fun getAllAlbumsInfoTest() {
+    fun getAllAlbumsTest() {
         val response = albumService.getAllAlbumsInfo()
-        val expect = albums.toList()
+        val expect = albums.toAlbumInfoDTOList()
 
         assertEquals(expect, response)
         assertEquals(expect[1], response[1])
@@ -72,8 +76,16 @@ class AlbumServiceTest {
 
     @Test
     fun getAlbumInfoTest() {
-        val response = albumService.getAlbumInfo(1)
-        val expect = album1
+        val response = albumService.getAlbumInfo(2)
+        val expect = album2.toAlbumInfoDTO()
+
+        assertEquals(expect, response)
+    }
+
+    @Test
+    fun getAlbumTest() {
+        val response = albumService.getAlbum(2)
+        val expect = AlbumDTO(album2.title, photos.toPhotoDTOList())
 
         assertEquals(expect, response)
     }
@@ -81,7 +93,7 @@ class AlbumServiceTest {
     @Test
     fun getPhotos(){
         val response = albumService.getPhotos(2)
-        val expect = photos.toList()
+        val expect = photos.toPhotoDTOList()
 
         assertEquals(expect, response)
     }
