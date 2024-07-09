@@ -1,7 +1,8 @@
 package com.kotlinexercise.controllers
 
-import com.kotlinexercise.models.AlbumInfo
-import com.kotlinexercise.models.Photo
+import com.kotlinexercise.dto.AlbumDTO
+import com.kotlinexercise.dto.AlbumInfoDTO
+import com.kotlinexercise.dto.PhotoDTO
 import com.kotlinexercise.services.AlbumService
 import com.kotlinexercise.services.TokenService
 import io.swagger.v3.oas.annotations.Operation
@@ -38,9 +39,31 @@ class ApiController(private val albumService: AlbumService, private val tokenSer
     @GetMapping("/albums")
     fun getAllAlbums(
         @RequestHeader(value = "Authorization", required = true) token: String
-    ): ResponseEntity<List<AlbumInfo>> {
-        val albums = albumService.getAllAlbumsInfo()
+    ): ResponseEntity<List<AlbumDTO>> {
+        val albums = albumService.getAllAlbums()
         return ResponseEntity(albums, HttpStatus.OK)
+    }
+
+    @Operation(summary = "Get album info by albumId")
+    @ApiResponses(
+        value = [
+            ApiResponse(responseCode = "200", description = "Album Info found"),
+            ApiResponse(responseCode = "401", description = "Authentication token not provided in header or invalid", content = [Content()]),
+            ApiResponse(responseCode = "404", description = "Album not found", content = [Content()])
+        ]
+    )
+    @GetMapping("/albums/{id}/info")
+    fun getAlbumInfo(
+        @Parameter(description = "Album id", example = "1", required = true)
+        @PathVariable id: Int,
+        @RequestHeader(value = "Authorization", required = true) token: String
+    ): ResponseEntity<AlbumInfoDTO> {
+        val album = albumService.getAlbumInfo(id)
+        return if (album != null) {
+            ResponseEntity(album, HttpStatus.OK)
+        } else {
+            ResponseEntity(HttpStatus.NOT_FOUND)
+        }
     }
 
     @Operation(summary = "Get album by albumId")
@@ -56,14 +79,16 @@ class ApiController(private val albumService: AlbumService, private val tokenSer
         @Parameter(description = "Album id", example = "1", required = true)
         @PathVariable id: Int,
         @RequestHeader(value = "Authorization", required = true) token: String
-    ): ResponseEntity<AlbumInfo> {
-        val album = albumService.getAlbumInfo(id)
+    ): ResponseEntity<AlbumDTO> {
+        val album = albumService.getAlbum(id)
         return if (album != null) {
             ResponseEntity(album, HttpStatus.OK)
         } else {
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
+
+
 
     @Operation(summary = "Get photos by albumId")
     @ApiResponses(
@@ -78,7 +103,7 @@ class ApiController(private val albumService: AlbumService, private val tokenSer
         @Parameter(description = "Id of the photo album", example = "1", required = true)
         @PathVariable id: Int,
         @RequestHeader(value = "Authorization", required = true) token: String
-    ): ResponseEntity<List<Photo>> {
+    ): ResponseEntity<List<PhotoDTO>> {
         val photos = albumService.getPhotos(id)
         return if(photos.isNullOrEmpty()){
             ResponseEntity(HttpStatus.NOT_FOUND)
