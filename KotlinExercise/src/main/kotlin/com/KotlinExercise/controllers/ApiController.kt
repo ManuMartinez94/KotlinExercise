@@ -79,8 +79,8 @@ class ApiController(private val albumService: AlbumService, private val tokenSer
         @Parameter(description = "Album id", example = "1", required = true)
         @PathVariable id: Int,
         @RequestHeader(value = "Authorization", required = true) token: String
-    ): ResponseEntity<AlbumInfoDTO> {
-        val album = albumService.getAlbumInfo(id)
+    ): ResponseEntity<AlbumDTO> {
+        val album = albumService.getAlbum(id)
         return if (album != null) {
             ResponseEntity(album, HttpStatus.OK)
         } else {
